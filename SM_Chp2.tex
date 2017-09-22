@@ -1,0 +1,83 @@
+\documentclass{article}
+\usepackage[margin=0.75in]{geometry}
+\usepackage{longtable}
+\usepackage{enumitem}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\setlist[enumerate]{nosep}
+
+\title{ECE 7005: Summary of Chapters}
+\author{Johnny Tang.481}
+
+\begin{document}
+\section*{Chapter 2: Entropy, Relative Entropy, and Mutual Information}
+\subsection*{Definition} The \textit{entropy} $H(X)$ of a discrete random variable $X$ is defined by
+\begin{equation}
+H(X) = -\sum_{x\in \mathcal{X}}p(x)\log p(x)
+\end{equation}
+\subsection*{Properties of $H$}
+\begin{enumerate}
+\item $H(X)\geq 0$.
+\item $H_b(X)=(\log_ba) H_a(X)$.
+\item (Conditioning Reduces Entropy) For any two random variables, $X$ and $Y$, we have \begin{equation}
+H(X|Y)\leq H(X)
+\end{equation} with equality if and only if $X$ and $Y$ are independent.
+\item $H(X_1,...,X_n)\leq \sum_{i=1}^{n} H(X_i)$, with equality if and only if the $X_i$ are independent.
+\item $H(X)\leq \log (|\mathcal{X}|)$, with equality if $X$ is distributed uniformly over $\mathcal{X}$.
+\item $H(p)$ is concave in $p$.
+\end{enumerate}
+\subsection*{Definition}
+The \textit{relative entropy} $D(p||q)$ of the probabiltiy mass function $p$ with respect to the probability mass function $q$ is defined by \begin{equation}
+D(p||q)=\sum_xp(x)\log \frac{p(x)}{q(x)}
+\end{equation}
+\subsection*{Definition}
+The \textit{mutual information} between two random variable $X$ and $Y$ is defined as \begin{equation}
+I(X;Y)=\sum_{x\in \mathcal{X}} \sum_{y\in \mathcal{Y}} p(x,y)\log \frac{p(x,y)}{p(x)p(y)}
+\end{equation}
+\subsection*{Alternative Expressions}
+\begin{equation}
+H(X) = E_p\log \frac{q}{p(X)},
+\end{equation}
+\begin{equation}
+H(X,Y) = E_p\log \frac{1}{p(X,Y)},
+\end{equation}
+\begin{equation}
+H(X|Y) = E_p\log \frac{1}{p(X|Y)}
+\end{equation}
+\begin{equation}
+I(X;Y) = E_p\log \frac{p(X,Y)}{p(X)p(Y)}
+\end{equation}
+\begin{equation}
+D(p||q) = E_p\log \frac{p(X)}{q(X)}
+\end{equation}
+\subsection*{Properties of $D$ and $I$}
+\begin{enumerate}
+\item $I(X;Y)=H(X)-H(X|Y)=H(Y)-H(Y|X)=H(X)+H(Y)-H(X,Y)$.
+\item $D(q||q)\geq 0$ with equality if and only if $p(x)=q(x)$, for all $x\in \mathcal{X}$.
+\item $I(X;Y)=D(p(X,Y)||p(x)p(y))\geq 0$, with equality if and only if $p(x,y)=p(x)p(y)$ (i.e., $X$ and $Y$ are independent)
+\item If $|\mathcal{X}|=m$, and $u$ is the uniform distribution over $\mathcal{X}$, then $D(p||u)=\log m-H(p)$.
+\item $D(p||q)$ is convex in the pair $(p,q)$.
+\end{enumerate}
+\subsection*{Chain Rules}
+Entropy: $H(X_1,X_2,...,X_n)=\sum_{i=1}^nI(X_i;Y|X_1,X_2,...,X_{i-1}$.\\
+Mutual information: $I(X_1,X_2,...,X_n;Y)=\sum_{i=1}^nI(X_i;Y|X_1,X_2,...,X_{i-1})$.\\
+Relative entropy: $D(p(x,y)||q(x,y))=D(p(x)||q(x)) + D(p(x)||q(x)) + D(p(y|x)||q(y|x))$.
+\subsection*{Jensen's Inequality}
+If $f$ is a convex function, then $Ef(X)\geq f(EX)$.
+\subsection*{Log Sum Inequality}
+For $n$ positive numbers, $a_1,a_2,...,a_n$ and $b_1,b_2,...,b_n$, \begin{equation}
+\sum_{i=1}^n a_i\log \frac{a_i}{b_i}\geq (\sum_{i=1}^na_i)\log \frac{\sum_{i=1}^na_i}{\sum_{i=1}^nb_i}.
+\end{equation} with equality if and only if $\frac{a_i}{b_i}=$ constant.
+\subsection*{Data-processing Inequality}
+If $X\rightarrow Y\rightarrow Z$ forms a Markov chain, $I(X;Y)\geq I(X;Z)$.
+\subsection*{Sufficient Statistic}
+$T(X)$ is sufficient relative to $\{f_\theta(x)\}$ if and only if $I(\theta;X)=I(\theta;T(X))$ for all distributions on $\theta$.
+\subsection*{Fano's Inequality}
+Let $P_e=Pr\{\hat{X}(Y)\neq X\}$. Then \begin{equation}
+H(P_e) +P_e\log |\mathcal{X}|\geq H(X|Y).
+\end{equation}
+\subsection*{Inequality}
+If $X$ and $X'$ are independent and identically distributed, then \begin{equation}
+Pr(X=X')\geq 2^{-H(x)}.
+\end{equation}
+\end{document}
